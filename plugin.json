@@ -1,0 +1,52 @@
+{
+  "type": "app",
+  "name": "Oracle Enterprise Manager App",
+  "id": "oracle-emcc-app",
+
+  "info": {
+    "description": "emcc app by Oracle",
+    "author": {
+      "name": "Oracle",
+      "url": "https://www.oracle.com"
+    },
+    "keywords": ["emcc", "Enterprise Manager","oracle-emcc-datasource","oracle-emcc-app","oracle"],
+    "logos": {
+      "small": "img/em_logo.png",
+      "large": "img/em_logo.png"
+    },
+    "links": [
+    ],
+
+
+    "version": "2.0.0",
+    "updated": "2020-11-17"
+  },
+
+  "includes": [
+     {"type": "dashboard", "name": "Sample - Database Configuration Report", "path" : "dashboards/database_configuration_report.json"},
+   {"type": "dashboard", "name": "Sample - Database Performance Report", "path" : "dashboards/database_performance_report.json"},
+   {"type": "dashboard", "name": "Sample - WebLogic Server JVM Performance Report", "path" : "dashboards/weblogic_server_jvm_performance_report.json"},
+ {"type": "dashboard", "name": "Sample - Weblogic Server Performance Summary Report", "path" : "dashboards/weblogic_server_performance_summary_report.json"},
+
+ {"type": "dashboard", "name": "Template - Single EM", "path" : "dashboards/template_single_em.json"},
+   {"type": "dashboard", "name": "Template - Multi EM", "path" : "dashboards/template_multi_em.json"},
+
+   {"type": "dashboard", "name": "Template - Single EM - Single Target Type", "path" : "dashboards/template_single_em_single_target_type.json"},
+   {"type": "dashboard", "name": "Template - Single EM - Single Target Type - Single Target Name", "path" : "dashboards/template_single_em_single_target_type_single_target_name.json"},
+   {"type": "dashboard", "name": "Template - Single EM - Single Target Type - Multi Target Name", "path" : "dashboards/template_single_em_single_target_type_multi_target_name.json"},
+   {"type": "dashboard", "name": "Template - Single EM - Single Target Type - Single Target Name - Single Named Credential", "path" : "dashboards/template_single_em_single_target_type_single_target_name_single_named_credential.json"},
+
+
+   {"type": "datasource","name" : "Oracle Enterprise Manager","path":"datasource/"}
+  ],
+
+  "dependencies": {
+    "grafanaVersion": "7.1.1",
+    "plugins": [ ]
+  },
+
+  "metrics": true,
+  "annotations": false,
+  "alerting": false
+
+}

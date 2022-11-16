@@ -1,0 +1,168 @@
+<!-- <datasource-http-settings current="ctrl.current" suggest-url="https://<EMHOST>:<PORT>" no-direct-access=true>
+</datasource-http-settings> -->
+<div class="gf-form-inline">
+  <label class="gf-form-label width-11">URL
+        <div class="gf-form-help-icon gf-form-help-icon--right-normal">
+                <i id="nc_tooltip" class="fa fa-info-circle"
+                title="The URL to be used by the Grafana Server to communicate with Enterprise Manager.">
+                  </i>
+        </div>
+        </label>
+        <div class="gf-form">
+                <input type="text" class="gf-form-input width-20" ng-model='ctrl.current.url'
+                        placeholder="https://host:port" required></input>
+        </div>
+</div>
+
+<div class="gf-form-inline">
+  <label class="gf-form-label width-11">Whitelisted Cookies
+      <div class="gf-form-help-icon gf-form-help-icon--right-normal">
+            <i id="nc_tooltip" class="fa fa-info-circle"
+                title="'grafana_session' cookie name is used by Enterprise Manager to identify a session.">
+                  </i>
+        </div>
+        </label>
+        <div class="gf-form">
+                <input type="text" class="gf-form-input width-16" ng-model='ctrl.current.cookieName'
+                        placeholder="Add Name"></input>
+        </div>
+        <button type="button" name="Add" class="btn btn-primary" ng-click="ctrl.addCookie()">Add</button>
+
+
+</div>
+<div class="gf-form-inline">
+  <span class="width-11"></span>
+<span ng-repeat="tagName in ctrl.current.jsonData.keepCookies">
+          <div  tag-color-from-name="tagName" class="label label-tag">
+            {{tagName}}
+            <icon class="fa fa-times" ng-click="ctrl.removeCookie(tagName)"></icon>
+          </div>
+</span>
+</div>
+<br/>
+<h3 class="page-heading">Basic Authentication Type</h3>
+<div class="gf-form-group">
+
+
+  <div class="gf-form-inline">
+          <div class="gf-form">
+                  <span class="gf-form-label width-10 ">User</span>
+                  <input type="text" class="gf-form-input width-20" ng-model='ctrl.current.basicAuthUser'
+                          placeholder="usename" required></input>
+          </div>
+    </div>
+          <div class="gf-form-inline">
+            <div class="gf-form">
+                    <span class="gf-form-label width-10">Password</span>
+                    <input ng-if="ctrl.current.secureJsonFields.basicAuthPassword==undefined || ctrl.current.secureJsonFields.basicAuthPassword==false" type="password" class="gf-form-input width-20" ng-model='ctrl.current.secureJsonData.basicAuthPassword'
+                            placeholder="password"></input>
+                            <button ng-if="ctrl.current.secureJsonFields.basicAuthPassword!=undefined && ctrl.current.secureJsonFields.basicAuthPassword==true" class="btn btn-primary" ng-click="ctrl.clearPassword()">Reset</button>
+            </div>
+         </div>
+
+
+</div>
+
+<div class="gf-form-inline">
+  <span class="gf-form-label width-16">Remote Management Repository
+        <div class="gf-form-help-icon gf-form-help-icon--right-normal">
+                <i id="nc_tooltip" class="fa fa-info-circle"
+                title="Connect to an alternative Enterprise Manager Repository. This option is useful when building dashboards using metric data hosted on older Enterprise Manager sites. Using this  option requires TCP communication between the Enterprise Manager 13.4 site specified above and the Remote Repository."
+                  ></i>
+        </div>
+  </span>
+        <gf-form-switch class="gf-form"  label-class="width-15"
+                checked="ctrl.current.jsonData.remoteConnectionToggle" on-change="ctrl.remoteConnection()">
+        </gf-form-switch>
+</div>
+<div class="gf-form-group" ng-show="ctrl.current.jsonData.remoteConnectionToggle">
+        <div class="gf-form-inline">
+                <div class="gf-form">
+                        <span class="gf-form-label width-12">Host:Port</span>
+                        <input type="text" class="gf-form-input width-20" ng-model='ctrl.current.jsonData.hostPort'
+                                placeholder="<host>:<port>" required></input>
+                </div>
+          </div>
+                <div class="gf-form-inline">
+                  <div class="gf-form">
+                          <select class="gf-form-input width-12" ng-model="ctrl.current.jsonData.serviceType"
+                                  ng-options="f as f for f in ['Service Name','SID']"></select>
+                          <input type="text" class="gf-form-input width-20" ng-model='ctrl.current.jsonData.serviceName'
+                                  placeholder="<Service Name> / <SID>" required></input>
+                </div>
+               </div>
+
+
+        <div class="gf-form-inline">
+                <div class="gf-form">
+                        <span class="gf-form-label width-12">Named Credential
+                                <div class="gf-form-help-icon gf-form-help-icon--right-normal">
+                                        <i id="nc_tooltip" class="fa fa-info-circle"
+                                        title="Global Named Credential defined in the Enterprise Manager 13.4 site specified above. This Named Credential must contain the Remote Repository’s Database username and password." >
+                                        </i>
+                                </div>
+                        </span>
+                        <input id="nc" type="password" class="gf-form-input width-20"
+                                ng-model='ctrl.current.jsonData.namedCredential' placeholder="<globalDBCredsOMR133>"
+                                required></input>
+                </div>
+                <!-- <div class="gf-form max-width-15">
+                        <span class="gf-form-label width-7">Password</span>
+                        <input type="password" class="gf-form-input" ng-model='ctrl.current.jsonData.jdbcpassword' placeholder="password" required></input>
+                </div> -->
+        </div>
+</div>
+<script lang="javascript">
+
+        $(document).ready(function () {
+                updateUi();
+        });
+
+        function updateUi() {
+                $("h6").each(function (index) {
+                        if ($(this).text() == 'Basic Auth Details') {
+                                $(this).text('Enterprise Manager User Credentials');
+                        }
+                });
+
+
+                $("h3").each(function (index) {
+                        if ($(this).text() == 'HTTP') {
+                                $(this).text('Enterprise Manager Site Details');
+                        }
+
+                        else if ($(this).text() == 'Auth') {
+                                $(this).text('Authentication Type');
+                        }
+                        else {
+
+                        }
+                });
+
+                //basic auth check box
+                var id_2 = document.getElementById("2");
+                if (typeof (id_2) != 'undefined' && id_2 != null) {
+                        id_2.disabled = true;
+                }
+                var id_5 = document.getElementById("5");
+                if (typeof (id_5) != 'undefined' && id_5 != null) {
+                        id_5.disabled = true;
+                }
+                //with credential check box
+                var id_3 = document.getElementById("3");
+                if (typeof (id_3) != 'undefined' && id_3 != null) {
+                        id_3.disabled = true;
+                }
+                var id_6 = document.getElementById("6");
+                if (typeof (id_6) != 'undefined' && id_6 != null) {
+                        id_6.disabled = true;
+                }
+
+
+                $("#nc_tooltip").tooltip({
+                        track: true
+                });
+
+        };
+
+</script>

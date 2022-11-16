@@ -1,0 +1,31 @@
+{
+  "type": "datasource",
+  "name": "Oracle Enterprise Manager",
+  "id": "oracle-emcc-datasource",
+
+  "info": {
+    "description": "oracle emcc datasource by Oracle",
+    "author": {
+      "name": "Oracle",
+      "url": "https://www.oracle.com"
+    },
+    "keywords": ["emcc", "Enterprise Manager","oracle-emcc-datasource","oracle-emcc-app","oracle"],
+    "logos": {
+      "small": "img/em_logo.png",
+      "large": "img/em_logo.png"
+    },
+    "links": [
+    ],
+    "version": "2.0.0",
+    "updated": "2020-11-17"
+  },
+
+  "dependencies": {
+    "grafanaVersion": "7.1.1",
+    "plugins": [ ]
+  },
+
+  "metrics": true,
+  "annotations": false,
+  "alerting": false
+}

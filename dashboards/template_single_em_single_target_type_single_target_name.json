@@ -1,0 +1,133 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "iteration": 1583050584520,
+  "links": [],
+  "panels": [{
+      "content": "**Warning** : This is a readonly dashboard, to customize it, make a copy using Save As option and change as needed.",
+      "datasource": null,
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 14,
+      "mode": "markdown",
+      "options": {},
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    }],
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [
+    "oracle-emcc-app",
+    "oracle-emcc-datasource"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allFormat": "glob",
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "EM",
+        "multi": false,
+        "name": "oem_gf_emsite",
+        "options": [],
+        "query": "oracle-emcc-datasource",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allFormat": "glob",
+        "allValue": null,
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": "$oem_gf_emsite",
+        "definition": "{ \"type\":\"targettype\" }",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Target Type",
+        "multi": false,
+        "name": "oem_gf_target_type",
+        "options": [],
+        "query": "{ \"type\":\"targettype\"  }",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allFormat": "glob",
+        "allValue": null,
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": "$oem_gf_emsite",
+        "definition": "{ \"type\":\"target\"  ,\"targettype\":\"$oem_gf_target_type\"}",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Target Name",
+        "multi": false,
+        "name": "oem_gf_target_name",
+        "options": [],
+        "query": "{ \"type\":\"target\"  ,\"targettype\":\"$oem_gf_target_type\"}",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5d",
+    "to": "now"
+  },
+  "timepicker": {"refresh_intervals": [
+    "5m",
+    "15m",
+    "30m",
+    "1h",
+    "2h",
+    "1d"
+  ]},
+  "timezone": "",
+  "title": "Template - Single EM - Single Target Type - Single Target Name",
+  "version": 1
+}

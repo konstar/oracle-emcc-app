@@ -1,0 +1,1236 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "iteration": 1588763337733,
+  "links": [],
+  "panels": [
+    {
+      "content": "**Warning** : This is a readonly dashboard, to customize it, make a copy using Save As option and change as needed.",
+      "datasource": null,
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 14,
+      "mode": "markdown",
+      "options": {},
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
+    {
+      "columns": [],
+      "datasource": "$oem_gf_emsite",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 2
+      },
+      "id": 4,
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 4,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "lastError": "",
+          "loading": {
+            "metric": true,
+            "metricgroup": true,
+            "namedcredential": true,
+            "seriestype": true,
+            "target": true,
+            "targettype": true
+          },
+          "metric": "",
+          "metricgroup": "",
+          "metricgroups": [],
+          "metrics": [],
+          "namedcredential": "",
+          "namedcredentials": [],
+          "offset": "",
+          "rawQuery": "select o.database_name \"Database_Name\",\n                o.characterset \"Database_Character_Set\",\n                o.instance_name \"Instance_Name\",\n                o.national_characterset \"National_DB_Character_Set\",\n                o.global_name \"Global_Name\",\n                o.log_mode \"Archive_Log_Mode\",\n                o.banner \"Version\",\n                o.default_temp_tablespace \"Default_Temporary_Tablespace\"\n          from sysman.mgmt$db_dbninstanceinfo o\n         where o.target_guid = (select target_guid from sysman.mgmt$target where target_name= $oem_gf_target_name )",
+          "refId": "A",
+          "seriestype": "General Query(Repository)",
+          "seriestypes": [
+            {
+              "key": "Custom(Target)",
+              "value": "General Query(Target)"
+            },
+            {
+              "key": "Custom(Repository)",
+              "value": "General Query(Repository)"
+            }
+          ],
+          "target": "Custom(Repository)",
+          "targetName": "",
+          "targets": [],
+          "targettype": "",
+          "targettypes": [],
+          "type": "Table",
+          "value": "Average",
+          "values": [
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Standard Deviation"
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Instance Information",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "$oem_gf_emsite",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 0,
+        "y": 7
+      },
+      "id": 6,
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Time",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "Time",
+          "type": "date"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "lastError": "",
+          "loading": {
+            "metric": true,
+            "metricgroup": true,
+            "namedcredential": true,
+            "seriestype": true,
+            "target": true,
+            "targettype": true
+          },
+          "metric": "",
+          "metricgroup": "",
+          "metricgroups": [],
+          "metrics": [],
+          "namedcredential": "",
+          "namedcredentials": [],
+          "offset": "",
+          "rawQuery": "select o.name as \"Option_Name\", o.selected as \"Configured\"\n                 from sysman.mgmt$db_options o\n                where o.target_guid = (select target_guid from  sysman.mgmt$target where target_name= $oem_gf_target_name )\n                  order by name",
+          "refId": "A",
+          "seriestype": "General Query(Repository)",
+          "seriestypes": [
+            {
+              "key": "Custom(Target)",
+              "value": "General Query(Target)"
+            },
+            {
+              "key": "Custom(Repository)",
+              "value": "General Query(Repository)"
+            }
+          ],
+          "target": "Custom(Repository)",
+          "targetName": "",
+          "targets": [],
+          "targettype": "",
+          "targettypes": [],
+          "type": "Non-Timeseries",
+          "value": "Average",
+          "values": [
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Standard Deviation"
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Status of Database Options",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "$oem_gf_emsite",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 8,
+        "y": 7
+      },
+      "id": 7,
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "lastError": "",
+          "loading": {
+            "metric": true,
+            "metricgroup": true,
+            "namedcredential": true,
+            "seriestype": true,
+            "target": true,
+            "targettype": true
+          },
+          "metric": "",
+          "metricgroup": "",
+          "metricgroups": [],
+          "metrics": [],
+          "namedcredential": "",
+          "namedcredentials": [],
+          "offset": "",
+          "rawQuery": "select o.name as \"Parameter\",\n                      o.value as \"Value\"\n                 from sysman.mgmt$db_init_params o\n                where o.target_guid = (select target_guid from sysman.mgmt$target where target_name= $oem_gf_target_name )\n                  and o.isdefault = 'FALSE'\n                  order by name asc",
+          "refId": "A",
+          "seriestype": "General Query(Repository)",
+          "seriestypes": [
+            {
+              "key": "Custom(Target)",
+              "value": "General Query(Target)"
+            },
+            {
+              "key": "Custom(Repository)",
+              "value": "General Query(Repository)"
+            }
+          ],
+          "target": "Custom(Repository)",
+          "targetName": "",
+          "targets": [],
+          "targettype": "",
+          "targettypes": [],
+          "type": "Table",
+          "value": "Average",
+          "values": [
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Standard Deviation"
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Non-Default Initialization Parameters",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "$oem_gf_emsite",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 6,
+        "w": 8,
+        "x": 16,
+        "y": 7
+      },
+      "id": 8,
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Creation_Date",
+          "align": "",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "link": false,
+          "pattern": "CREATION_DATE_COL",
+          "type": "date"
+        },
+        {
+          "alias": "Last_Modification_Date",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "MOD_DATE",
+          "thresholds": [],
+          "type": "date",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "lastError": "",
+          "loading": {
+            "metric": true,
+            "metricgroup": true,
+            "namedcredential": true,
+            "seriestype": true,
+            "target": true,
+            "targettype": true
+          },
+          "metric": "",
+          "metricgroup": "",
+          "metricgroups": [],
+          "metrics": [],
+          "namedcredential": "",
+          "namedcredentials": [],
+          "offset": "",
+          "rawQuery": "select o.file_name as \"File_Name\",\n                      o.status as \"Status\",\n                      o.creation_date as CREATION_DATE_COL,\n                      o.mod_date as MOD_DATE,\n                      o.os_storage_entity as \"OS_Storage\"\n                 from sysman.mgmt$db_controlfiles o\n                where o.target_guid = (select target_guid from sysman.mgmt$target where target_name=$oem_gf_target_name )\n                  order by file_name asc",
+          "refId": "A",
+          "seriestype": "General Query(Repository)",
+          "seriestypes": [
+            {
+              "key": "Custom(Target)",
+              "value": "General Query(Target)"
+            },
+            {
+              "key": "Custom(Repository)",
+              "value": "General Query(Repository)"
+            }
+          ],
+          "target": "Custom(Repository)",
+          "targetName": "",
+          "targets": [],
+          "targettype": "",
+          "targettypes": [],
+          "type": "Table",
+          "value": "Average",
+          "values": [
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Standard Deviation"
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Controlfile Configuration",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "$oem_gf_emsite",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 13
+      },
+      "id": 9,
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "INITIAL_EXTEND",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "pattern": "INITIAL_EXT_K_COL",
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "NEXT_SIZE",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "NEXT_SIZE_K_COL",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "PCT_INCREASE",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "MIN_EXTLEN_K",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "Next_Extent",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "Initial_Extent",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "Percentage_Increase",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "PERCENTAGE_INCREASE",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Maximum_Extents",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "MAX_EXTENT",
+          "thresholds": [],
+          "type": "string",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "Minimum_Extents",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "MIN_EXTEND_LENGTH",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        },
+        {
+          "alias": "Minimum_Extent_Size",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "MIN_EXTEND_LENGTH",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "BLOCK_SIZE",
+          "thresholds": [],
+          "type": "number",
+          "unit": "none"
+        },
+        {
+          "alias": "Minimum_Extents",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "MIN_EXTENT",
+          "thresholds": [],
+          "type": "string",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "lastError": "",
+          "loading": {
+            "metric": true,
+            "metricgroup": true,
+            "namedcredential": true,
+            "seriestype": true,
+            "target": true,
+            "targettype": true
+          },
+          "metric": "",
+          "metricgroup": "",
+          "metricgroups": [],
+          "metrics": [],
+          "namedcredential": "",
+          "namedcredentials": [],
+          "offset": "",
+          "rawQuery": "select o.tablespace_name as \"Tablespace_Name\",\n                      o.status as Status,\n                      o.contents as \"Contents\",\n                      o.extent_management as \"Extent_Management\",\n                      o.allocation_type as \"Allocation_Type\",\n                      o.segment_space_management as \"Segment_Space_Management\",\n                      o.logging as \"Logging\",                \n                     (NVL(o.initial_ext_size,0)) as \"Initial_Extent\",\n                      (NVL(o.next_extent,0)) as \"Next_Extent\",\n                      (NVL(o.increment_by,0)) as PERCENTAGE_INCREASE,\n                      DECODE(o.max_extents,null,'UNLIMITED',TO_CHAR(max_extents)) as MAX_EXTENT,\n                      o.min_extents as MIN_EXTENT,\n                     (NVL(o.min_extlen,0)) as MIN_EXTEND_LENGTH,\n                      o.block_size as BLOCK_SIZE,\n                      TO_CHAR(NVL(o.bigfile,'NA')) as BIGFILE\n                 from sysman.mgmt$db_tablespaces o\n                where o.target_guid = (select target_guid from sysman.mgmt$target where target_name= $oem_gf_target_name )\n                  order by tablespace_name asc",
+          "refId": "A",
+          "seriestype": "General Query(Repository)",
+          "seriestypes": [
+            {
+              "key": "Custom(Target)",
+              "value": "General Query(Target)"
+            },
+            {
+              "key": "Custom(Repository)",
+              "value": "General Query(Repository)"
+            }
+          ],
+          "target": "Custom(Repository)",
+          "targetName": "",
+          "targets": [],
+          "targettype": "",
+          "targettypes": [],
+          "type": "Table",
+          "value": "Average",
+          "values": [
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Standard Deviation"
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Tablespace Configuration",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "$oem_gf_emsite",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 5,
+        "w": 24,
+        "x": 0,
+        "y": 18
+      },
+      "id": 10,
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "Size",
+          "align": "auto",
+          "colorMode": "cell",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "pattern": "SIZE_M_COL",
+          "type": "number",
+          "unit": "decbits"
+        },
+        {
+          "alias": "Max_File_Size",
+          "align": "left",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "MAX_FILE_SIZE_M_COL",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "mappingType": 1,
+          "pattern": "",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "pattern": "INCREMENT_BLOCKS_COL",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "lastError": "",
+          "loading": {
+            "metric": true,
+            "metricgroup": true,
+            "namedcredential": true,
+            "seriestype": true,
+            "target": true,
+            "targettype": true
+          },
+          "metric": "",
+          "metricgroup": "",
+          "metricgroups": [],
+          "metrics": [],
+          "namedcredential": "",
+          "namedcredentials": [],
+          "offset": "",
+          "rawQuery": "select o.file_name as \"File_Name\",\n                      o.tablespace_name as \"Tablespace_Name\",\n                      o.status as \"Status\",\n                      o.autoextensible as \"Autoextensible\",\n                      (NVL(o.file_size,0)) as SIZE_M_COL,\n                     o.max_file_size as MAX_FILE_SIZE_M_COL,\nTO_CHAR(o.increment_by,'999999990D000') as \"Increment\",\n                      o.os_storage_entity as \"OS_Storage\"\n                 from sysman.mgmt$db_datafiles o\n                where o.target_guid = (select target_guid from sysman.mgmt$target where target_name=$oem_gf_target_name)\n                  order by tablespace_name asc",
+          "refId": "A",
+          "seriestype": "General Query(Repository)",
+          "seriestypes": [
+            {
+              "key": "Custom(Target)",
+              "value": "General Query(Target)"
+            },
+            {
+              "key": "Custom(Repository)",
+              "value": "General Query(Repository)"
+            }
+          ],
+          "target": "Custom(Repository)",
+          "targetName": "",
+          "targets": [],
+          "targettype": "",
+          "targettypes": [],
+          "type": "Table",
+          "value": "Average",
+          "values": [
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Standard Deviation"
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Datafile Configuration",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "$oem_gf_emsite",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 5,
+        "w": 14,
+        "x": 0,
+        "y": 23
+      },
+      "id": 11,
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": false
+      },
+      "styles": [
+        {
+          "alias": "",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "pattern": "Group_Num",
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "Members",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "Log_Size",
+          "thresholds": [],
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "Thread_Num",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 2,
+          "pattern": "/.*/",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "lastError": "",
+          "loading": {
+            "metric": true,
+            "metricgroup": true,
+            "namedcredential": true,
+            "seriestype": true,
+            "target": true,
+            "targettype": true
+          },
+          "metric": "",
+          "metricgroup": "",
+          "metricgroups": [],
+          "metrics": [],
+          "namedcredential": "",
+          "namedcredentials": [],
+          "offset": "",
+          "rawQuery": "select o.group_num as \"Group_Num\",\n                      o.status as \"Status\",\n                      o.members as \"Members\",\n                      o.file_name as \"File_Name\",\n                      TO_CHAR((logsize/1024), '99G999G990') as \"Log_Size\",\n                      o.thread_num as \"Thread_Num\",\n                      o.os_storage_entity as \"OS_Storage\"\n                 from sysman.mgmt$db_redologs o\n                where o.target_guid = (select target_guid from sysman.mgmt$target where target_name=$oem_gf_target_name )\n                  order by group_num asc",
+          "refId": "A",
+          "seriestype": "General Query(Repository)",
+          "seriestypes": [
+            {
+              "key": "Custom(Target)",
+              "value": "General Query(Target)"
+            },
+            {
+              "key": "Custom(Repository)",
+              "value": "General Query(Repository)"
+            }
+          ],
+          "target": "Custom(Repository)",
+          "targetName": "",
+          "targets": [],
+          "targettype": "",
+          "targettypes": [],
+          "type": "Table",
+          "value": "Average",
+          "values": [
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Standard Deviation"
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Redolog Configuration",
+      "transform": "table",
+      "type": "table"
+    },
+    {
+      "columns": [],
+      "datasource": "$oem_gf_emsite",
+      "fontSize": "100%",
+      "gridPos": {
+        "h": 5,
+        "w": 10,
+        "x": 14,
+        "y": 23
+      },
+      "id": 12,
+      "options": {},
+      "pageSize": null,
+      "scroll": true,
+      "showHeader": true,
+      "sort": {
+        "col": 0,
+        "desc": true
+      },
+      "styles": [
+        {
+          "alias": "",
+          "align": "auto",
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 2,
+          "pattern": "ROLL_SIZE",
+          "type": "number",
+          "unit": "decbytes"
+        },
+        {
+          "alias": "Next_Size",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "SECONDARY_EXTENT_SIZE",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "",
+          "align": "",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "link": false,
+          "mappingType": 1,
+          "pattern": "High_Water_Mark_Size",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Maximum_Extent",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "decimals": 0,
+          "pattern": "MAXIMUM_EXTENT",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Minimum_Extent",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "MINIMUM_EXTENT",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        },
+        {
+          "alias": "Pct_Increase",
+          "align": "auto",
+          "colorMode": null,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "dateFormat": "YYYY-MM-DD HH:mm:ss",
+          "decimals": 0,
+          "mappingType": 1,
+          "pattern": "PERCENTAGE_EXTENT_INCREASE",
+          "thresholds": [],
+          "type": "number",
+          "unit": "short"
+        }
+      ],
+      "targets": [
+        {
+          "lastError": "",
+          "loading": {
+            "metric": true,
+            "metricgroup": true,
+            "namedcredential": true,
+            "seriestype": true,
+            "target": true,
+            "targettype": true
+          },
+          "metric": "",
+          "metricgroup": "",
+          "metricgroups": [],
+          "metrics": [],
+          "namedcredential": "",
+          "namedcredentials": [],
+          "offset": "",
+          "rawQuery": "select o.rollname as \"Roll_Name\",\n                      o.status as \"Status\",\n                      o.tablespace_name as \"Tablespace_Name\",\n                      o.extents as \"Extents\",\n                      TO_CHAR(NVL(o.rollsize,0),'99G999G990D900') as \"High_Water_Mark_Size\",\n                      TO_CHAR(NVL(o.next_size,0),'99G999G990') as SECONDARY_EXTENT_SIZE,\n                      o.maximum_extents as MAXIMUM_EXTENT,\n                      o.minimum_extents as MINIMUM_EXTENT,\n                      o.pct_increase as \"Pct Increase\",\n                      o.optsize as \"Optimal_Size\",\n                      o.aveactive as \"Average_Active\",\n                      o.wraps as \"Wraps\",\n                      o.shrinks as \"Shrinks\",\n                      o.aveshrink as \"Average_Shrink\" \n                 from sysman.mgmt$db_rollback_segs o\n                where o.target_guid = (select target_guid from sysman.mgmt$target where target_name= $oem_gf_target_name)\n                  order by rollname asc",
+          "refId": "A",
+          "seriestype": "General Query(Repository)",
+          "seriestypes": [
+            {
+              "key": "Custom(Target)",
+              "value": "General Query(Target)"
+            },
+            {
+              "key": "Custom(Repository)",
+              "value": "General Query(Repository)"
+            }
+          ],
+          "target": "Custom(Repository)",
+          "targetName": "",
+          "targets": [],
+          "targettype": "",
+          "targettypes": [],
+          "type": "Table",
+          "value": "Average",
+          "values": [
+            "Average",
+            "Minimum",
+            "Maximum",
+            "Standard Deviation"
+          ]
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Rollback Segment Configuration",
+      "transform": "table",
+      "type": "table"
+    }
+  ],
+  "refresh": false,
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [
+    "oracle-emcc-app",
+    "oracle-emcc-datasource"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+
+        },
+        "datasource": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "EM",
+        "multi": false,
+        "name": "oem_gf_emsite",
+        "options": [],
+        "query": "oracle-emcc-datasource",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": true,
+          "text": "oracle_database",
+          "value": "oracle_database"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Target Type",
+        "multi": false,
+        "name": "oem_gf_target_type",
+        "options": [
+          {
+            "selected": true,
+            "text": "oracle_database",
+            "value": "oracle_database"
+          }
+        ],
+        "query": "oracle_database",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "text": "",
+          "value": ""
+        },
+        "datasource": "$oem_gf_emsite",
+        "definition": "{ \"type\":\"target\" ,\"targettype\":\"$oem_gf_target_type\" ,  \"emsite\" : \"$oem_gf_emsite\" }",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Target Name",
+        "multi": false,
+        "name": "oem_gf_target_name",
+        "options": [
+        ],
+        "query": "{ \"type\":\"target\" ,\"targettype\":\"$oem_gf_target_type\" ,  \"emsite\" : \"$oem_gf_emsite\" }",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-5d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "",
+  "title": "Sample - Database Configuration Report",
+  "version": 2
+}

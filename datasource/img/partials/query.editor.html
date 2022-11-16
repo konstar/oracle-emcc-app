@@ -1,0 +1,133 @@
+<style>
+/* Center the loader */
+#loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 150px;
+  height: 150px;
+  margin: -75px 0 0 -75px;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid #33b5e5;
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+</style>
+<div style="position: absolute;top:0;left:0;width: 100%;height:100%;z-index:2;opacity:0.4;filter: alpha(opacity = 50)"
+ng-if="!ctrl.target.loading.targettype || !ctrl.target.loading.target || !ctrl.target.loading.metricgroup || !ctrl.target.loading.metric|| !ctrl.target.loading.namedcredential || !ctrl.target.loading.seriestype">
+<div id="loader" ></div>
+</div>
+
+
+
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+<query-editor-row query-ctrl="ctrl" can-collapse="true">
+  <!-- <div class="gf-form-group"> -->
+  <div class="gf-form-inline">
+    <div class="gf-form">
+      <label class="gf-form-label query-keyword width-10">Query Type</label>
+       <select class="gf-form-input" ng-model="ctrl.target.type" ng-options="f.value as f.text for f in [{'text': 'Time series','value':'Timeseries'},{'text': 'Non-time series','value':'Table'}]" ng-change="ctrl.changeType()"></select>
+    </div>
+  </div>
+
+    <div class="gf-form-inline">
+      <div class="gf-form">
+        <label class="gf-form-label query-keyword width-10">Series</label>
+         <select class="gf-form-input" ng-model="ctrl.target.seriestype" ng-options="item.value as item.key for item in ctrl.target.seriestypes" ng-change="ctrl.changeSeries($query)"></select>
+      </div>
+
+      <div class="gf-form" ng-if="ctrl.target.Utils.isVisibleSeriesValue(ctrl.target.seriestype)">
+        <label class="gf-form-label query-keyword width-10">Value</label>
+         <select class="gf-form-input" ng-model="ctrl.target.value" ng-options="f as f for f in ctrl.getValues();" ng-change="ctrl.changeTargetValue($query)" ></select>
+      </div>
+
+        <div class="gf-form" ng-if="ctrl.target.Utils.isTargetVisible(ctrl.target.seriestype)">
+          <label class="gf-form-label query-keyword width-10">Target Type</label>
+          <gf-form-dropdown model="ctrl.target.targettype" allow-custom="true" lookup-text="true"
+            get-options="ctrl.target.targettypes" on-change="ctrl.changeTargets($query)" css-class="width-12">
+          </gf-form-dropdown>
+          <i class="fa fa-spinner fa-spin" css-class="width-2" ng-hide="ctrl.target.loading.targettype"></i>
+        </div>
+
+        <div class="gf-form" ng-if="ctrl.target.Utils.isTargetVisible(ctrl.target.seriestype)">
+          <label class="gf-form-label query-keyword width-10">Target</label>
+          <gf-form-dropdown model="ctrl.target.targetName" allow-custom="true" lookup-text="true"
+            get-options="ctrl.getTargets()" on-change="ctrl.changeBasedOnSeries($query)" css-class="min-width-12">
+          </gf-form-dropdown>
+          <i class="fa fa-spinner fa-spin" css-class="width-2" ng-hide="ctrl.target.loading.target"></i>
+        </div>
+
+        <div class="gf-form" ng-if="ctrl.target.Utils.getSeriesType(ctrl.target.seriestype)==ctrl.target.constants.METRIC_SERIES_TYPE">
+          <label class="gf-form-label query-keyword width-10">Metric Group</label>
+          <gf-form-dropdown model="ctrl.target.metricgroup" allow-custom="true" lookup-text="true"
+            get-options="ctrl.getMetricGroup()" on-change="ctrl.changeMetrics($query)" css-class="min-width-12">
+          </gf-form-dropdown>
+          <i class="fa fa-spinner fa-spin" css-class="width-2" ng-hide="ctrl.target.loading.metricgroup"></i>
+        </div>
+
+        <div class="gf-form" ng-if="ctrl.target.Utils.getSeriesType(ctrl.target.seriestype)==ctrl.target.constants.METRIC_SERIES_TYPE">
+          <label class="gf-form-label query-keyword width-10">Metrics</label>
+          <gf-form-dropdown model="ctrl.target.metric" allow-custom="true" lookup-text="true"
+            get-options="ctrl.getMetrics()"  css-class="min-width-12" >
+          </gf-form-dropdown>
+          <i class="fa fa-spinner fa-spin" css-class="width-2" ng-hide="ctrl.target.loading.metric"></i>
+        </div>
+
+        <div class="gf-form" ng-if="ctrl.target.seriestype.endsWith(ctrl.target.constants.TARGET_SERIES_TYPE)==true" >
+          <label class="gf-form-label query-keyword width-10">Named Credentials</label>
+          <gf-form-dropdown model="ctrl.target.namedcredential" allow-custom="true" lookup-text="true"
+            get-options="ctrl.target.namedcredentials"  css-class="min-width-12">
+          </gf-form-dropdown>
+            <i class="fa fa-spinner fa-spin" css-class="width-2" ng-hide="ctrl.target.loading.namedcredential"></i>
+        </div>
+</div>
+<div class="gf-form-inline">
+        <div class="gf-form  gf-form--grow" ng-if="ctrl.target.Utils.isRawQueryVisible(ctrl.target.seriestype)" >
+          <label class="gf-form-label query-keyword width-10">Query</label>
+              <code-editor class="width-100" content="ctrl.target.rawQuery" datasource="ctrl.datasource" on-change="ctrl.panelCtrl.refresh()" data-mode="sql"></code-editor>
+  			       <!-- <textarea rows="10"  class="gf-form-input" cols="100" ng-model="ctrl.target.rawQuery" spellcheck="false"  data-min-length=0 data-items=100 ></textarea> -->
+        </div>
+ </div>
+ <div class="gf-form" ng-show="ctrl.target.seriestype==ctrl.target.constants.EM_METRICS_RAW_SERIES_TYPE && ctrl.target.metric!=undefined && ctrl.target.metric.indexOf('STRING')!=-1">
+     <pre class="gf-form-pre" >Please visualize the 'STRING' data in non-graph format</pre>
+ </div>
+ <div class="gf-form" ng-show="ctrl.target.seriestype==ctrl.target.constants.EM_METRICS_RAW_SERIES_TYPE && ctrl.target.metric!=undefined && ctrl.target.metric.indexOf('STRING')!=-1">
+     <pre class="gf-form-pre" >Please visualize the 'STRING' data in non-graph format</pre>
+ </div>
+
+        <br/>
+        <div class="gf-form-inline">
+          <div class="gf-form" class="gf-form" ng-if="!ctrl.target.Utils.isRawQueryVisible(ctrl.target.seriestype)" >
+            <label class="gf-form-label query-keyword width-10">Offset</label>
+                <input type="text" ng-model="ctrl.target.offset" placeholder="1d" class="gf-form-input min-width-8" ></input>
+          </div>
+          <div class="gf-form">
+            <label class="gf-form-label query-keyword width-10">Alias By</label>
+             <input type="text" class="gf-form-input min-width-10" ng-model="ctrl.target.target" ></input>
+          </div>
+
+          <div class="gf-form">
+             <button type="submit" class="btn btn-primary" ng-disabled="ctrl.target.Utils.isGoBtnEnabled(ctrl.target)==false" ng-click="ctrl.onChangeInternal($query)" >Go</button>
+          </div>
+
+      </div>
+
+
+        <div class="gf-form" ng-show="ctrl.target.lastError">
+          <pre class="gf-form-pre alert alert-error">{{ctrl.target.lastError}}</pre>
+        </div>
+</query-editor-row>
